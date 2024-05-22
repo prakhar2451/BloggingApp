@@ -2,7 +2,9 @@ package com.bloggingapp.controllers;
 
 import com.bloggingapp.entity.JwtRequest;
 import com.bloggingapp.entity.JwtResponse;
+import com.bloggingapp.entity.User;
 import com.bloggingapp.security.JwtHelper;
+import com.bloggingapp.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin("*")
 public class AuthController {
 
     @Autowired
@@ -25,6 +28,8 @@ public class AuthController {
     @Autowired
     private AuthenticationManager manager;
 
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private JwtHelper helper;
@@ -63,6 +68,17 @@ public class AuthController {
     @ExceptionHandler(BadCredentialsException.class)
     public String exceptionHandler() {
         return "Credentials Invalid !!";
+    }
+
+
+    @PostMapping("/register")
+    public User registerUser(@RequestBody User user) {
+        return userService.registerUser(user);
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        return "IF YOU ARE SEEING THIS, IGNORE THIS, JUST LIKE YOUR CRUSH IGNORED YOU!! (just for testing purpose!!)";
     }
 
 }

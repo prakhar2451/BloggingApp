@@ -2,17 +2,21 @@ package com.bloggingapp.services;
 
 import com.bloggingapp.entity.User;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Service
-public class UserService {
+public interface UserService {
 
-    private List<User> users = new ArrayList<>();
+    User registerUser(User user);
 
-//    public UserService () {
-//        users.add(new User(UUID));
-//    }
+    List<User> getUsers();
+
+    User getUserById (String userId);
+
+    User getUserByEmail(String email);
+
+    void updateUser(String userId, User user);
+
+    void deleteUser(String userId);
+
 }
